@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Sheenam.Api.Brokers.Strorages
 {
-    public partial class StorageBroker : EFxceptionsContext
+    public partial class StorageBroker : EFxceptionsContext, IStorageBroker
     {
         private readonly IConfiguration configuration;
 
