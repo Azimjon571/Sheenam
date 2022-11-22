@@ -1,4 +1,9 @@
-﻿using ADotNet.Clients;
+﻿//=================================================
+// Copyrigh (c) Coalition of Good-Hearted Engineers
+// Free To Use Find Comfort and Peace
+//=================================================
+
+using ADotNet.Clients;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks.SetupDotNetTaskV1s;
