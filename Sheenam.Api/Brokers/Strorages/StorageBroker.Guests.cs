@@ -5,10 +5,10 @@
 //=============
 
 
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Sheenam.Api.Models.Foundations.Guests;
-using System.Threading.Tasks;
 
 namespace Sheenam.Api.Brokers.Strorages
 {
@@ -18,11 +18,11 @@ namespace Sheenam.Api.Brokers.Strorages
 
         public async ValueTask<Guest> InsertGuestAsync(Guest guest)
         {
-            using var broker=new StorageBroker(this.configuration);
+            using var broker = new StorageBroker(this.configuration);
 
-            EntityEntry<Guest> guestEntityEntry = 
+            EntityEntry<Guest> guestEntityEntry =
                 await broker.Guests.AddAsync(guest);
-            
+
             await broker.SaveChangesAsync();
 
             return guestEntityEntry.Entity;

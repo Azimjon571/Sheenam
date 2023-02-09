@@ -24,5 +24,5 @@ public class Guest
 
     public string Address { get; set; }
 
-    public GenderType Gender { get; set;}
+    public GenderType Gender { get; set; }
 }
