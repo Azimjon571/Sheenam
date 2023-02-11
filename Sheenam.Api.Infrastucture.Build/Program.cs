@@ -27,7 +27,7 @@ var githubPipeline = new GithubPipeline
 
     Jobs = new Jobs
     {
-        Build=new BuildJob
+        Build = new BuildJob
         {
             RunsOn = BuildMachines.Windows2022,
 
@@ -73,4 +73,4 @@ var githubPipeline = new GithubPipeline
 var client = new ADotNetClient();
 
 client.SerializeAndWriteToFile(
-    adoPipeline: githubPipeline, path:"../../../../.github/workflows/dotnet.yml");
+    adoPipeline: githubPipeline, path: "../../../../.github/workflows/dotnet.yml");
