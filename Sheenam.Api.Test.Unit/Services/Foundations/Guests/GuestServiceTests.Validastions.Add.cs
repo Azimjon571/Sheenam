@@ -3,6 +3,7 @@
 // Free To Use Find Comfort and Peace
 //=================================================
 
+using Moq;
 using Sheenam.Api.Models.Foundations.Guests;
 using Sheenam.Api.Services.Foundations.Guests.Exseptions;
 
@@ -18,7 +19,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
 
             var nullGuestException = new NullGuestException();
 
-            var exceptedValidationException =
+            var exceptedGuestValidationException =
                 new GuestValidationException(nullGuestException);
 
             //when
@@ -29,7 +30,16 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
             await Assert.ThrowsAsync<GuestValidationException>(() =>
             addGuestTask.AsTask());
 
+            this.loggingBrokerMock.Verify(broker =>
+                broker.LogError(It.Is(SameExceptionAs(exceptedGuestValidationException))),
+                    Times.Once);
 
+            this.storageBrokerMock.Verify(broker =>
+                broker.InsertGuestAsync(It.IsAny<Guest>()),
+                    Times.Never);
+
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+            this.storageBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
