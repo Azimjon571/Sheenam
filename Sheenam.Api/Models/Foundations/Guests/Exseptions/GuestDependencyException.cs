@@ -9,11 +9,11 @@ using Xeptions;
 
 namespace Sheenam.Api.Models.Foundations.Guests.Exseptions
 {
-    public class GuestDependencyException: Xeption
+    public class GuestDependencyException : Xeption
     {
         public GuestDependencyException(Exception innerException)
-            : base(message: "Guest Dependency error occured, contact support", 
+            : base(message: "Guest Dependency error occured, contact support",
                   innerException)
-        {}
+        { }
     }
 }

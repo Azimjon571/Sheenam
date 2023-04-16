@@ -13,6 +13,6 @@ namespace Sheenam.Api.Models.Foundations.Guests.Exseptions
     {
         public FailedGuestServiceException(Exception innerException)
             : base(message: "Failed guest service error occured, contact support", innerException)
-        {}
+        { }
     }
 }

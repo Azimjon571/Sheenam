@@ -28,8 +28,8 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
 
             this.guestService =
                 new GuestService(
-                    storageBroker:this.storageBrokerMock.Object,
-                    loggingBroker:this.loggingBrokerMock.Object);
+                    storageBroker: this.storageBrokerMock.Object,
+                    loggingBroker: this.loggingBrokerMock.Object);
         }
 
         private static Guest CreateRandomGuest() =>
@@ -40,7 +40,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
 
         private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 9).GetValue();
-        
+
         private static string GetRandomString() =>
             new MnemonicString().GetValue();
 
@@ -52,7 +52,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
         {
             int randomNumber = GetRandomNumber();
 
-            while (Enum.IsDefined(typeof(T), randomNumber)is true)
+            while (Enum.IsDefined(typeof(T), randomNumber) is true)
             {
                 randomNumber = GetRandomNumber();
             }
@@ -60,13 +60,8 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
             return (T)(object)randomNumber;
         }
 
-        private Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException)
-        {
-            return actualException =>
-                actualException.Message == expectedException.Message
-                && actualException.InnerException.Message == expectedException.InnerException.Message
-                && (actualException.InnerException as Xeption).DataEquals(expectedException.InnerException.Data);
-        }
+        private Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
+            actualException => actualException.SameExceptionAs(expectedException);
 
         private static Filler<Guest> CreateGuestFiller(DateTimeOffset date)
         {

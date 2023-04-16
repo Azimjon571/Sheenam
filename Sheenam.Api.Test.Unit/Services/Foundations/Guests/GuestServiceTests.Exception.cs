@@ -20,8 +20,8 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
             Guest someGuest = CreateRandomGuest();
             SqlException sqlException = GetSqlError();
             var failedGuestStorageException = new FailedGuestStorageException(sqlException);
-          
-            var expectedGuestDependencyException = 
+
+            var expectedGuestDependencyException =
                 new GuestDependencyException(failedGuestStorageException);
 
             this.storageBrokerMock.Setup(broker =>
@@ -36,11 +36,11 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
 
             await Assert.ThrowsAsync<GuestDependencyException>(() =>
                 addGuestTask.AsTask());
-            this.storageBrokerMock.Verify(broker=>
+            this.storageBrokerMock.Verify(broker =>
                 broker.InsertGuestAsync(someGuest),
-                    Times.Once);    
+                    Times.Once);
 
-            this.loggingBrokerMock.Verify(broker=>
+            this.loggingBrokerMock.Verify(broker =>
                 broker.LogCritical(It.Is(SameExceptionAs(
                     expectedGuestDependencyException))),
                         Times.Once);
@@ -81,7 +81,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
                 broker.InsertGuestAsync(someGuest),
                     Times.Once);
 
-            this.loggingBrokerMock.Verify(broker=>
+            this.loggingBrokerMock.Verify(broker =>
                 broker.LogError(It.Is(SameExceptionAs(
                     expectedGuestDependencyValidationException))),
                         Times.Once);
@@ -119,7 +119,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
                 broker.InsertGuestAsync(someGuest),
                     Times.Once);
 
-            this.loggingBrokerMock.Verify(broker=>
+            this.loggingBrokerMock.Verify(broker =>
                 broker.LogError(It.Is(SameExceptionAs(
                     expectedGuestServiceException))),
                     Times.Once);

@@ -40,7 +40,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
             this.loggingBrokerMock.VerifyNoOtherCalls();
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
-        
+
         [Theory]
         [InlineData(null)]
         [InlineData("")]
@@ -52,7 +52,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
             var invalidGuest = new Guest
             {
                 FirstName = invalidText
-            };  
+            };
 
             var invalidGuestException = new InvalidGuestException();
 
@@ -126,7 +126,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
                 this.guestService.AddGuestAsync(invalidGuest);
 
             //then
-            await Assert.ThrowsAsync<GuestValidationException>(()=>
+            await Assert.ThrowsAsync<GuestValidationException>(() =>
                 addGuestTask.AsTask());
 
             this.loggingBrokerMock.Verify(broker =>
@@ -134,7 +134,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
                     expectedGuestValidationException))),
                     Times.Once);
 
-            this.storageBrokerMock.Verify(broker=>
+            this.storageBrokerMock.Verify(broker =>
                 broker.InsertGuestAsync(It.IsAny<Guest>()),
                 Times.Never);
 
