@@ -15,7 +15,7 @@ jobs:
     - name: Seeting Up.NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.300
+        dotnet-version: 7.0.202
         include-prerelease: false
     - name: Restoring Nuget Packages
       run: dotnet restore
