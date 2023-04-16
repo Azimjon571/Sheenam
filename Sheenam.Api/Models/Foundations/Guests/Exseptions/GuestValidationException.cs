@@ -6,13 +6,13 @@
 
 using Xeptions;
 
-namespace Sheenam.Api.Services.Foundations.Guests.Exseptions
+namespace Sheenam.Api.Models.Foundations.Guests.Exseptions
 {
-    public class GuestValidationException: Xeption
+    public class GuestValidationException : Xeption
     {
         public GuestValidationException(Xeption innerException)
             : base(message: "Guest validation error occurred, fix the error and try again",
                   innerException)
-        {}
+        { }
     }
 }

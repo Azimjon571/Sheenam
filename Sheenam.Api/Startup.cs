@@ -42,7 +42,7 @@ namespace Sheenam.Api
                         info: apiInfo);
             });
         }
-            
+
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
         {

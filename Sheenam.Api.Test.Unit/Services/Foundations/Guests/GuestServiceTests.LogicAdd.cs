@@ -12,7 +12,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
 {
     public partial class GuestServiceTests
     {
-       
+
         [Fact]
         public async Task ShouldAddGuestAsync()
         {
@@ -39,6 +39,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
                     Times.Once);
 
             this.storageBrokerMock.VerifyNoOtherCalls();
+            this.loggingBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
