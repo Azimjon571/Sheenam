@@ -44,7 +44,7 @@ var githubPipeline = new GithubPipeline
                     Name = "Seeting Up.NET",
                     TargetDotNetVersion = new TargetDotNetVersion
                     {
-                          DotNetVersion = "7.0.100"
+                          DotNetVersion = "7.0.202"
                     }
                 },
 
