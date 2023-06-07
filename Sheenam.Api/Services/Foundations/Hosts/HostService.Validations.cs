@@ -5,6 +5,8 @@
 
 
 using System;
+using Azure.Messaging;
+using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.Extensions.Hosting;
 using Sheenam.Api.Models.Foundations.Hosts;
 using Sheenam.Api.Models.Foundations.Hosts.Exceptions;
@@ -23,7 +25,8 @@ namespace Sheenam.Api.Services.Foundations.Hosts
                 (Rule: IsInvalid(host.LastName), Parameter: nameof(HoSt.LastName)),
                 (Rule: IsInvalid(host.DateOfBirth), Parameter: nameof(HoSt.DateOfBirth)),
                 (Rule: IsInvalid(host.Email), Parameter: nameof(HoSt.Email)),
-                (Rule: IsInvalid(host.PhoneNumber), Parameter: nameof(HoSt.PhoneNumber)));
+                (Rule: IsInvalid(host.PhoneNumber), Parameter: nameof(HoSt.PhoneNumber)),
+                (Rule: IsInvalid(host.Gender), Parameter: nameof(HoSt.Gender)));
         }
         private static dynamic IsInvalid(Guid id) => new
         {
@@ -41,6 +44,12 @@ namespace Sheenam.Api.Services.Foundations.Hosts
         {
             Condition = date == default,
             Message = "Value is required"
+        };
+
+        private static dynamic IsInvalid(GenderType gender) => new
+        {
+            Condition = Enum.IsDefined(typeof(GenderType), gender) is false,
+            Message = "Value is invalid"
         };
         private void ValidateHostNotNull(HoSt hoSt)
         {
