@@ -1,0 +1,16 @@
+﻿//=================================================
+// Copyrigh (c) Coalition of Good-Hearted Engineers
+// Free To Use Find Comfort and Peace
+//=================================================
+
+
+using System.Threading.Tasks;
+using Sheenam.Api.Models.Foundations.Hosts;
+
+namespace Sheenam.Api.Services.Foundations.Hosts
+{
+    public interface IHostService
+    {
+        ValueTask<HoSt> AddHostAsync(HoSt hoSt);
+    }
+}
