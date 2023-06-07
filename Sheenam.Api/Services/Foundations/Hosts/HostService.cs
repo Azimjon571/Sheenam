@@ -12,7 +12,7 @@ using Sheenam.Api.Models.Foundations.Hosts.Exceptions;
 
 namespace Sheenam.Api.Services.Foundations.Hosts
 {
-    public class HostService : IHostService
+    public partial class HostService : IHostService
     {
         private readonly IStorageBroker storageBroker;
         private readonly ILoggingBroker loggingBroker;
@@ -25,26 +25,12 @@ namespace Sheenam.Api.Services.Foundations.Hosts
             this.loggingBroker = loggingBroker;
         }
 
-        public async ValueTask<HoSt> AddHostAsync(HoSt hoSt)
+        public ValueTask<HoSt> AddHostAsync(HoSt hoSt) =>
+        TryCatch(async() =>
         {
-            try
-            {
-                if (hoSt is null)
-                {
-                    throw new NullHostException();
-                }
-                return await this.storageBroker.InsertHostAsync(hoSt);
-            }
-            catch (NullHostException nullHostException)
-            {
-                var hostValidationException =
-                    new HostValidationException(nullHostException);
+            ValidateHostNotNull(hoSt);
 
-                this.loggingBroker.LogError(hostValidationException);
-
-                throw hostValidationException;
-            }
-            
-        }
+            return await this.storageBroker.InsertHostAsync(hoSt);
+        });
     }
 }
