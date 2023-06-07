@@ -108,5 +108,47 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Hosts
             this.loggingBrokerMock.VerifyNoOtherCalls();
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowValidationExceptionOnAddIfGenderIsInvalidAndLogItAsync()
+        {
+            //given
+            HoSt randomHost = CreateRandomHost();
+            HoSt invalidHost = randomHost;
+            invalidHost.Gender = GetInvalidEnum<GenderType>();
+            var invalidHostException = new InvalidHostException();
+
+
+            invalidHostException.AddData(
+                key: nameof(HoSt.Gender),
+                values: "Value is invalid");
+            
+            var expectedHostValidationException = 
+                new HostValidationException(invalidHostException);
+
+            //when
+
+            ValueTask<HoSt> addHostTask =
+                this.hostService.AddHostAsync(invalidHost);
+
+            
+            HostValidationException actualHostValidationException=
+                await Assert.ThrowsAsync<HostValidationException>(() =>
+                    addHostTask.AsTask());
+
+            //then
+            actualHostValidationException.Should().BeEquivalentTo(expectedHostValidationException);
+
+            this.loggingBrokerMock.Verify(broker =>
+                broker.LogError(It.Is(SameExceptionAs(expectedHostValidationException))),
+                    Times.Once);
+
+            this.storageBrokerMock.Verify(broker =>
+                broker.InsertHostAsync(It.IsAny<HoSt>()),
+                    Times.Never);
+
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+            this.storageBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
