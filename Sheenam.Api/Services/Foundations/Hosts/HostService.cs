@@ -28,7 +28,7 @@ namespace Sheenam.Api.Services.Foundations.Hosts
         public ValueTask<HoSt> AddHostAsync(HoSt hoSt) =>
         TryCatch(async() =>
         {
-            ValidateHostNotNull(hoSt);
+            ValidateHostOnAdd(hoSt);
 
             return await this.storageBroker.InsertHostAsync(hoSt);
         });

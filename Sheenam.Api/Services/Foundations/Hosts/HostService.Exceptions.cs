@@ -25,6 +25,10 @@ namespace Sheenam.Api.Services.Foundations.Hosts
             {
                 throw CreateAdnLogValidationException(nullHostException);
             }
+            catch(InvalidHostException invalidHostException)
+            {
+                throw CreateAdnLogValidationException(invalidHostException);
+            }
         }
 
         private HostValidationException CreateAdnLogValidationException(Xeption exception)
