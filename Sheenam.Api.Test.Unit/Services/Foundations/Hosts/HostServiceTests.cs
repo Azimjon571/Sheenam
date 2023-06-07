@@ -3,6 +3,7 @@
 // Free To Use Find Comfort and Peace
 //=================================================
 
+using System.Linq.Expressions;
 using Moq;
 using Sheenam.Api.Brokers.Loggings;
 using Sheenam.Api.Brokers.Strorages;
@@ -10,6 +11,7 @@ using Sheenam.Api.Models.Foundations.Guests;
 using Sheenam.Api.Models.Foundations.Hosts;
 using Sheenam.Api.Services.Foundations.Hosts;
 using Tynamix.ObjectFiller;
+using Xeptions;
 
 namespace Sheenam.Api.Test.Unit.Services.Foundations.Hosts
 {
@@ -34,6 +36,9 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Hosts
 
         private static DateTimeOffset GetRandomDateTimeOffset() =>
             new DateTimeRange(earliestDate: new DateTime()).GetValue();
+
+        private Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedExceptoin) =>
+           actualException => actualException.SameExceptionAs(expectedExceptoin);
 
         private static Filler<HoSt> CreateHostFiller(DateTimeOffset date)
         {
