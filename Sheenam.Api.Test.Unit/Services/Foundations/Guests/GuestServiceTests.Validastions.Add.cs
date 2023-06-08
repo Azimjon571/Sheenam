@@ -6,6 +6,8 @@
 using Moq;
 using Sheenam.Api.Models.Foundations.Guests;
 using Sheenam.Api.Models.Foundations.Guests.Exseptions;
+using Xunit;
+
 namespace Sheenam.Api.Test.Unit.Services.Foundations.Guests
 {
     public partial class GuestServiceTests

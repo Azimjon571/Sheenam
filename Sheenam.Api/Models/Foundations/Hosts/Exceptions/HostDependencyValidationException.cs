@@ -1,0 +1,18 @@
+﻿//=================================================
+// Copyrigh (c) Coalition of Good-Hearted Engineers
+// Free To Use Find Comfort and Peace
+//=================================================
+
+
+using Xeptions;
+
+namespace Sheenam.Api.Models.Foundations.Hosts.Exceptions
+{
+    public class HostDependencyValidationException:Xeption
+    {
+        public HostDependencyValidationException(Xeption innerException)
+            : base(message: "Host dependency validation error occured, fix the error and try again",
+                  innerException)
+        {}
+    }
+}
