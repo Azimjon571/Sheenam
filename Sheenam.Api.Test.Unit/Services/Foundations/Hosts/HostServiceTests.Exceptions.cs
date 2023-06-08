@@ -47,5 +47,46 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Hosts
             this.storageBrokerMock.VerifyNoOtherCalls();
             this.loggingBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowHostDependencyValidationOnAddIfDuplicateKeyErrorOccursAndLogItAsync()
+        {
+            //given
+            HoSt someHost = CreateRandomHost();
+            string someMessage = CreateRandomString();
+
+            var duplicateKeyException =
+                new DuplicateKeyException(someMessage);
+
+            var alreadyExistHostException =
+                new AlreadyExistHostException(duplicateKeyException);
+
+            var expectedHostDependencyValidationException =
+                new HostDependencyValidationException(alreadyExistHostException);
+
+            this.storageBrokerMock.Setup(broker =>
+            broker.InsertHostAsync(someHost)).
+                ThrowsAsync(duplicateKeyException);
+
+            //when
+            ValueTask<HoSt> addHostTask =
+                this.hostService.AddHostAsync(someHost);
+
+            //then
+            await Assert.ThrowsAsync<HostDependencyValidationException>(() =>
+                addHostTask.AsTask());
+
+            this.storageBrokerMock.Verify(broker =>
+                broker.InsertHostAsync(someHost),
+                    Times.Once);
+
+            this.loggingBrokerMock.Verify(broker =>
+                broker.LogError(It.Is(SameExceptionAs(
+                    expectedHostDependencyValidationException))),
+                        Times.Once);
+
+            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
