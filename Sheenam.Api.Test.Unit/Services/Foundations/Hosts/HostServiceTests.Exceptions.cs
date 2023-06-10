@@ -6,6 +6,7 @@
 using EFxceptions.Models.Exceptions;
 using FluentAssertions;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Hosting;
 using Moq;
 using Sheenam.Api.Models.Foundations.Guests.Exseptions;
 using Sheenam.Api.Models.Foundations.Hosts;
@@ -16,38 +17,42 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Hosts
 {
     public partial class HostServiceTests
     {
-        //[Fact]
-        //public async Task ShouldThrowHostCriticalDependencyExceptionOnAddIfSqlErrorOccursAndLogItAsync()
-        //{
-        //    // given
-        //    HoSt someHost = CreateRandomHost();
-        //    SqlException sqlException = CreateSqlException();
-        //    var failedHostStorageException = new FailedHostStorageException(sqlException);
+        [Fact]
+        public async Task ShouldThrowHostCriticalDependencyExceptionOnAddIfSqlErrorOccursAndLogItAsync()
+        {
+            // given
+            HoSt someHost = CreateRandomHost();
+            SqlException sqlException = GetSqlError();
+            var failedHostStorageException = new FailedHostStorageException(sqlException);
 
-        //    var expectedHostDependencyException =
-        //        new HostDependencyException(failedHostStorageException);
+            var expectedHostDependencyException =
+                new HostDependencyException(failedHostStorageException);
 
-           
-        //    // when
-        //    ValueTask<HoSt> addHostTask = this.hostService.AddHostAsync(someHost);
+            this.storageBrokerMock.Setup(broker =>
+                 broker.InsertHostAsync(someHost))
+                 .ThrowsAsync(sqlException);
 
-        //    HostDependencyException actualHostDependencyException =
-        //        await Assert.ThrowsAsync<HostDependencyException>(()=>
-        //            addHostTask.AsTask());
 
-        //    // then
-        //    actualHostDependencyException.Should().BeEquivalentTo(expectedHostDependencyException);
+            // when
+            ValueTask<HoSt> addHostTask = this.hostService.AddHostAsync(someHost);
 
-        //    this.loggingBrokerMock.Verify(broker =>
-        //        broker.LogCritical(It.Is(SameExceptionAs(
-        //            expectedHostDependencyException))), Times.Once);
+            HostDependencyException actualHostDependencyException =
+                await Assert.ThrowsAsync<HostDependencyException>(addHostTask.AsTask);
 
-        //    this.storageBrokerMock.Verify(broker =>
-        //        broker.InsertHostAsync(It.IsAny<HoSt>()), Times.Never);
+            // then
+            actualHostDependencyException.Should().BeEquivalentTo(expectedHostDependencyException);
 
-        //    this.storageBrokerMock.VerifyNoOtherCalls();
-        //    this.loggingBrokerMock.VerifyNoOtherCalls();
-        //}
+            
+            this.loggingBrokerMock.Verify(broker =>
+                broker.LogCritical(It.Is(SameExceptionAs(
+                    expectedHostDependencyException))), Times.Once);
+
+            this.storageBrokerMock.Verify(broker =>
+                broker.InsertHostAsync(It.IsAny<HoSt>()), Times.Once);
+
+            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+        }
 
         [Fact]
         public async Task ShouldThrowHostDependencyValidationOnAddIfDuplicateKeyErrorOccursAndLogItAsync()

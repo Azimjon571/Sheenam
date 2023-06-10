@@ -44,8 +44,8 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Hosts
         private static string CreateRandomString()=>
             new MnemonicString().GetValue();
 
-        private static SqlException CreateSqlException() =>
-           (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
+        private static SqlException GetSqlError() =>
+             (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
 
         private static T GetInvalidEnum<T>()
         {
