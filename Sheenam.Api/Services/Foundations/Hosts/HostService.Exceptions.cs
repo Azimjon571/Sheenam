@@ -1,6 +1,6 @@
 ﻿//=================================================
 // Copyrigh (c) Coalition of Good-Hearted Engineers
-// Free To Use Find Comfort and Peace
+// Free To Use To Find Comfort and Peace
 //=================================================
 
 
@@ -28,7 +28,7 @@ namespace Sheenam.Api.Services.Foundations.Hosts
             {
                 throw CreateAdnLogValidationException(nullHostException);
             }
-            catch(InvalidHostException invalidHostException)
+            catch (InvalidHostException invalidHostException)
             {
                 throw CreateAdnLogValidationException(invalidHostException);
             }
@@ -45,7 +45,7 @@ namespace Sheenam.Api.Services.Foundations.Hosts
 
                 throw CreateAdnLogDependencyValidationException(alreadyExistHostException);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 var failedHostServiceException =
                     new FailedHostServiceException(exception);
@@ -84,7 +84,7 @@ namespace Sheenam.Api.Services.Foundations.Hosts
 
         private HostServiceException CreateAndLogHostServiceException(Xeption exception)
         {
-            var hostServiceException =  new HostServiceException(exception);
+            var hostServiceException = new HostServiceException(exception);
             this.loggingBroker.LogError(hostServiceException);
 
             return hostServiceException;

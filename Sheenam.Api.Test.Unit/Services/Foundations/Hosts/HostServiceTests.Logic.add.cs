@@ -1,6 +1,6 @@
 ﻿//=================================================
 // Copyrigh (c) Coalition of Good-Hearted Engineers
-// Free To Use Find Comfort and Peace
+// Free To Use To Find Comfort and Peace
 //=================================================
 
 using FluentAssertions;
@@ -27,7 +27,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Hosts
                     .ReturnsAsync(storageHost);
 
             //when
-            HoSt actualHost=
+            HoSt actualHost =
                 await this.hostService.AddHostAsync(inputHost);
 
             //then

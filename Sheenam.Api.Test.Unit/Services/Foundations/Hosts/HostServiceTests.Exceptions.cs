@@ -1,14 +1,12 @@
 ﻿//=================================================
 // Copyrigh (c) Coalition of Good-Hearted Engineers
-// Free To Use Find Comfort and Peace
+// Free To Use To Find Comfort and Peace
 //=================================================
 
 using EFxceptions.Models.Exceptions;
 using FluentAssertions;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Hosting;
 using Moq;
-using Sheenam.Api.Models.Foundations.Guests.Exseptions;
 using Sheenam.Api.Models.Foundations.Hosts;
 using Sheenam.Api.Models.Foundations.Hosts.Exceptions;
 using Xunit;
@@ -42,7 +40,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Hosts
             // then
             actualHostDependencyException.Should().BeEquivalentTo(expectedHostDependencyException);
 
-            
+
             this.loggingBrokerMock.Verify(broker =>
                 broker.LogCritical(It.Is(SameExceptionAs(
                     expectedHostDependencyException))), Times.Once);
@@ -105,7 +103,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Hosts
             var failedHostServiceException =
                 new FailedHostServiceException(serverExecption);
 
-            var expectedHostServiceException = 
+            var expectedHostServiceException =
                 new HostServiceException(failedHostServiceException);
 
             this.storageBrokerMock.Setup(broker =>
@@ -113,7 +111,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Hosts
                     ThrowsAsync(serverExecption);
 
             //when
-            ValueTask<HoSt> addHostTask = 
+            ValueTask<HoSt> addHostTask =
                 this.hostService.AddHostAsync(someHost);
 
             //then
