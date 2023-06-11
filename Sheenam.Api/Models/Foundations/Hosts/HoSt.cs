@@ -15,6 +15,6 @@ namespace Sheenam.Api.Models.Foundations.Hosts
         public DateTimeOffset DateOfBirth { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public GenderType Gender { get; set; }
+        public GenderTypeHost Gender { get; set; }
     }
 }

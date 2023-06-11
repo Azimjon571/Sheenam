@@ -37,7 +37,6 @@ namespace Sheenam.Api
             services.AddControllers();
             AddBrokers(services);
             AddFoundationService(services);
-            AddHostFoundationService(services);
 
             services.AddSwaggerGen(options =>
             {
@@ -78,10 +77,6 @@ namespace Sheenam.Api
         private static void AddFoundationService(IServiceCollection services)
         {
             services.AddTransient<IGuestService, GuestService>();
-        }
-
-        private static void AddHostFoundationService(IServiceCollection services)
-        {
             services.AddTransient<IHostService, HostService>();
         }
     }
