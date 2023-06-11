@@ -113,7 +113,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Hosts
             //given
             HoSt randomHost = CreateRandomHost();
             HoSt invalidHost = randomHost;
-            invalidHost.Gender = GetInvalidEnum<GenderType>();
+            invalidHost.Gender = GetInvalidEnum<GenderTypeHost>();
             var invalidHostException = new InvalidHostException();
 
 
