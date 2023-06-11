@@ -1,6 +1,6 @@
 ﻿//=================================================
 // Copyrigh (c) Coalition of Good-Hearted Engineers
-// Free To Use Find Comfort and Peace
+// Free To Use To Find Comfort and Peace
 //=================================================
 
 
@@ -9,11 +9,11 @@ using Xeptions;
 
 namespace Sheenam.Api.Models.Foundations.Hosts.Exceptions
 {
-    public class FailedHostStorageException:Xeption
+    public class FailedHostStorageException : Xeption
     {
         public FailedHostStorageException(Exception innerException)
-            :base(message: "Failed Host storage error occured, contact support",
+            : base(message: "Failed Host storage error occured, contact support",
                  innerException)
-        {}
+        { }
     }
 }

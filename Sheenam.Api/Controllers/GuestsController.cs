@@ -1,6 +1,6 @@
 ﻿//=================================================
 // Copyrigh (c) Coalition of Good-Hearted Engineers
-// Free To Use Find Comfort and Peace
+// Free To Use To Find Comfort and Peace
 //=================================================
 
 
@@ -19,7 +19,7 @@ namespace Sheenam.Api.Controllers
     {
         private readonly IGuestService guestService;
 
-        public GuestsController(IGuestService guestService)=>
+        public GuestsController(IGuestService guestService) =>
             this.guestService = guestService;
 
         [HttpPost]
@@ -35,20 +35,20 @@ namespace Sheenam.Api.Controllers
             {
                 return BadRequest(guestValidationException.InnerException);
             }
-            catch(GuestDependencyValidationException guestDependencyValidationException)
-                when(guestDependencyValidationException.InnerException is AlreadyExistGuestException)
+            catch (GuestDependencyValidationException guestDependencyValidationException)
+                when (guestDependencyValidationException.InnerException is AlreadyExistGuestException)
             {
                 return Conflict(guestDependencyValidationException.InnerException);
             }
-            catch(GuestDependencyValidationException guestDependencyValidationException)
+            catch (GuestDependencyValidationException guestDependencyValidationException)
             {
                 return BadRequest(guestDependencyValidationException.InnerException);
             }
-            catch(GuestDependencyException guestDependencyException)
+            catch (GuestDependencyException guestDependencyException)
             {
                 return InternalServerError(guestDependencyException.InnerException);
             }
-            catch(GuestServiceException guestServiceException)
+            catch (GuestServiceException guestServiceException)
             {
                 return InternalServerError(guestServiceException.InnerException);
             }

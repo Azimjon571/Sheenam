@@ -1,11 +1,9 @@
 ﻿//=================================================
 // Copyrigh (c) Coalition of Good-Hearted Engineers
-// Free To Use Find Comfort and Peace
+// Free To Use To Find Comfort and Peace
 //=================================================
 
 using FluentAssertions;
-using Microsoft.Extensions.Hosting;
-using System;
 using Moq;
 using Sheenam.Api.Models.Foundations.Hosts;
 using Sheenam.Api.Models.Foundations.Hosts.Exceptions;
@@ -122,8 +120,8 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Hosts
             invalidHostException.AddData(
                 key: nameof(HoSt.Gender),
                 values: "Value is invalid");
-            
-            var expectedHostValidationException = 
+
+            var expectedHostValidationException =
                 new HostValidationException(invalidHostException);
 
             //when
@@ -131,8 +129,8 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Hosts
             ValueTask<HoSt> addHostTask =
                 this.hostService.AddHostAsync(invalidHost);
 
-            
-            HostValidationException actualHostValidationException=
+
+            HostValidationException actualHostValidationException =
                 await Assert.ThrowsAsync<HostValidationException>(() =>
                     addHostTask.AsTask());
 

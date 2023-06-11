@@ -7,7 +7,6 @@
 
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Sheenam.Api.Models.Foundations.Guests;
 
 namespace Sheenam.Api.Brokers.Strorages
@@ -18,6 +17,6 @@ namespace Sheenam.Api.Brokers.Strorages
 
         public async ValueTask<Guest> InsertGuestAsync(Guest guest) =>
             await InsertAsync(guest);
-        
+
     }
 }

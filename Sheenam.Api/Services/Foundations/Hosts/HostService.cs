@@ -1,6 +1,6 @@
 ﻿//=================================================
 // Copyrigh (c) Coalition of Good-Hearted Engineers
-// Free To Use Find Comfort and Peace
+// Free To Use To Find Comfort and Peace
 //=================================================
 
 
@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Sheenam.Api.Brokers.Loggings;
 using Sheenam.Api.Brokers.Strorages;
 using Sheenam.Api.Models.Foundations.Hosts;
-using Sheenam.Api.Models.Foundations.Hosts.Exceptions;
 
 namespace Sheenam.Api.Services.Foundations.Hosts
 {
@@ -26,7 +25,7 @@ namespace Sheenam.Api.Services.Foundations.Hosts
         }
 
         public ValueTask<HoSt> AddHostAsync(HoSt hoSt) =>
-        TryCatch(async() =>
+        TryCatch(async () =>
         {
             ValidateHostOnAdd(hoSt);
 

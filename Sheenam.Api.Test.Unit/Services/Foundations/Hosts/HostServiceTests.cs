@@ -1,11 +1,11 @@
 ﻿//=================================================
 // Copyrigh (c) Coalition of Good-Hearted Engineers
-// Free To Use Find Comfort and Peace
+// Free To Use To Find Comfort and Peace
 //=================================================
 
 using System.Linq.Expressions;
-using Microsoft.Data.SqlClient;
 using System.Runtime.Serialization;
+using Microsoft.Data.SqlClient;
 using Moq;
 using Sheenam.Api.Brokers.Loggings;
 using Sheenam.Api.Brokers.Strorages;
@@ -41,7 +41,7 @@ namespace Sheenam.Api.Test.Unit.Services.Foundations.Hosts
         private static int GetRandomNumber() =>
            new IntRange(min: 2, max: 9).GetValue();
 
-        private static string CreateRandomString()=>
+        private static string CreateRandomString() =>
             new MnemonicString().GetValue();
 
         private static SqlException GetSqlError() =>
